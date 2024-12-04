@@ -1,4 +1,4 @@
-function [Z,obj] = PPAU(X,W,St2,n_v,dim,m,k,lambda,alpha,max_iter,numClust)
+function [Z,obj] = pimv_CGA(X,W,St2,n_v,dim,m,k,lambda,alpha,max_iter,numClust)
 %PPAU 此处显示有关此函数的摘要
 % X缺失视图
 % W填充索引
@@ -105,7 +105,7 @@ while flag
         linshi_R=Piv{iv}*X{iv}+E{iv}*W{iv}-A{iv}*Z;
         linshi_obj = linshi_obj+norm(linshi_R,'fro')^2+lambda*norm(Piv{iv},'fro')^2+alpha*trace(E{iv}*L_g{iv}*E{iv}');        
     end
-    obj(iter) = linshi_obj; %为什么要与X的范数相除？
+    obj(iter) = linshi_obj;
     if (iter>9) && (abs((obj(iter-1)-obj(iter))/(obj(iter-1)))<1e-6 || iter>max_iter || obj(iter) < 1e-10)
         flag = 0;
     end
