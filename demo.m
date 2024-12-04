@@ -16,7 +16,7 @@ max_iter = 100;
 Datafold=[Dataname,'_del_',num2str(del),'.mat'];
 load(Datafold);
 
-lambda=10^(0);alpha=10^(-1);dim=numClust*3;k=3;
+lambda=10^(0);alpha=10^(-4);dim=numClust*2;k=3;
 m=dim;
 for f=1:10 
     fold = folds{f};
@@ -42,7 +42,7 @@ for f=1:10
         St2{iv} = mpower(linshi_St,-0.5); 
     end
    
-    [Z,obj] = PPAU(X1,W,St2,n_v,dim,m,k,lambda,alpha,max_iter,numClust);
+    [Z,obj] = PIMV_CAG(X1,W,St2,n_v,dim,m,k,lambda,alpha,max_iter,numClust);
     pre_labels=kmeans(real(Z'),numClust,'emptyaction','singleton','replicates',10,'display','off');
     res(f,:)=Clustering8Measure(Y, pre_labels)*100;
 end
